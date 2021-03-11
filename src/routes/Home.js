@@ -53,6 +53,15 @@ const Error = styled.div`
   margin-top: 10px;
 `;
 
+const Movies = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  width: 65%;
+  position: relative;
+  top: -50px;
+`;
+
 const Home = () => {
   const { loading, error, data } = useQuery(GET_MOVIES);
   return (
@@ -62,9 +71,13 @@ const Home = () => {
         <Subtitle>I love GraphQL</Subtitle>
       </Header>
       {loading && <Loading>Loading...</Loading>}
-      {!loading &&
-        data.movies &&
-        data.movies.map((movie) => <Movie key={movie.id} {...movie} />)}
+      {!loading && (
+        <Movies>
+          {data?.movies?.map((movie) => (
+            <Movie key={movie.id} {...movie} />
+          ))}
+        </Movies>
+      )}
       {error && <Error>Error :(</Error>}
     </Container>
   );
